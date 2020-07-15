@@ -1,0 +1,19 @@
+{
+  "name": "proj",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "assert": "^2.0.0",
+    "chromedriver": "^83.0.1",
+    "geckodriver": "^1.19.1",
+    "selenium-webdriver": "^4.0.0-alpha.7",
+    "cucumber": "^6.0.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "./node_modules/.bin/cucumber-js features/BWELL_QA_task.feature"
+  },
+  "author": "",
+  "license": "ISC"
+}
