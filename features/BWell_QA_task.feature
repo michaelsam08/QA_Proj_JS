@@ -2,9 +2,7 @@ Feature: BWell QA Automation Task
 
   Scenario: My App CMS Login website
     Given I visit My App CMS website
-    # Then I see Application Name field
-    Then I see the form heading
-    Then I click Submit
+    Then I see Application Name field
     # Then I see Email Address field
     # Then I see Password field
 
