@@ -1,18 +1,19 @@
 Feature: BWell QA Automation Task
 
-Scenario: My App CMS Login website
-    Given I visit My App CMS website
-    Then I see the form heading
-    Then I see Application Name field
-    Then I see Email Address field
+# Scenario: My App CMS Login website
+#     Given I visit My App CMS website
+#     Then I see the form heading
+#     And I see Application Name field
+#     And I see Email Address field
+#     And I see Password field
 
-# Scenario: Usefr can Sign in with valid credentials
-#   Given I visit My App CMS website
-#   When I type "CMS Demo Account" as App Name
-#   And I type "demo@diyappdesigner.com" as Email Address
-#   And I type "demo123" as Password
-#   And I click on Sign in button
-#   Then I should see my Dashboard
+Scenario: User can Sign in with valid credentials
+   Given I visit My App CMS website
+   When I input app name "CMS Demo Account" 
+   And I input username "demo@diyappdesigner.com"
+   And I input password "demo123" 
+   And I click Sign in button
+   Then I should see my Dashboard
 
 
 # Scenario: User can sort in ascending order all appointments services by Name

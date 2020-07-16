@@ -1,6 +1,6 @@
 const assert = require("assert");
 const { Builder, By, until } = require("selenium-webdriver");
-const { setWorldConstructor, Given, Then, After } = require("cucumber");
+const { setWorldConstructor, Given, Then, When, After } = require("cucumber");
 const chromedriver = require("chromedriver");
 
 
@@ -23,8 +23,6 @@ Given(/^I visit My App CMS website$/, { timeout: 10000 }, function () {
   return this.driver.get("http://login.myappcms.com");
 });
 
-// Locate form-signin-heading element and test text value
-//
 // Locate form-signin-heading element and test text value
 //
 Then(/^I see the form heading$/, { timeout: 2000 }, function () {
@@ -75,6 +73,50 @@ Then(/^I see Email Address field$/, { timeout: 5000 }, function () {
 
   );
 });
+Then(/^I see Password field$/, { timeout: 5000 }, function () {
+
+  return this.driver.wait(until.elementLocated(By.id('password')), 5000).then(passwordField =>
+
+    passwordField.getAttribute("placeholder").then(placeholder =>
+      assert.equal(
+        placeholder,
+        'Password',
+        'Apple'
+      )
+    )
+
+  );
+});
+
+
+
+When(/^I input app name "([^"]*)"$/, async function (keyword) {
+  return this.driver.findElement({ id: "appName" }).sendKeys(keyword);
+});
+
+When(/^I input username "([^"]*)"$/, async function (keyword) {
+  return this.driver.findElement({ id: "username" }).sendKeys(keyword);
+});
+
+When(/^I input password "([^"]*)"$/, async function (keyword) {
+  return this.driver.findElement({ id: "password" }).sendKeys(keyword);
+});
+
+Then(/^I click Sign in button$/, async function () {
+  return this.driver.findElement({ id: "login-submit" }).click();
+});
+
+Then(/^I should see my Dashboard n$/, async function () {
+  return this.driver.findElement({ id: "wrapper" }).getText();
+});
+
+Then(/^I should see "([^"]*)"$/, async function (keyword) {
+  await driver.sleep(2000);
+  let result = await driver.findElement({ id: "b_results" }).getText();
+  return assert.ok(result.includes(keyword));
+});
+
+
 
 // Then(/^I see Application Name field$/, { timeout: 2000 }, function () {
 //   this.driver
