@@ -17,8 +17,15 @@ Scenario: User can Sign in with valid credentials
 
 
 # Scenario: User can sort in ascending order all appointments services by Name
-#   Given I am on "http://lgin.myappcms.com/build" page
-#   When I click "Sort Acscending" on "Service Name" column
+#   Given I visit My App CMS website
+#    When I input app name "CMS Demo Account" 
+#    And I input username "demo@diyappdesigner.com"
+#    And I input password "demo123" 
+#    And I click Sign in button
+#    Then I should see my Dashboard
+#    When I click Appointments
+#    And I click Services
+#   And I click 
 #   Then I shouldl see corrects results list
 
 

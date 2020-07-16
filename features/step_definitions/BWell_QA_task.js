@@ -4,21 +4,6 @@ const { setWorldConstructor, Given, Then, When, After } = require("cucumber");
 const chromedriver = require("chromedriver");
 
 
-
-// var assert = require("assert");
-// const { Builder, By } = require("selenium-webdriver");
-// const chrome = require("selenium-webdriver/chrome");
-
-//const {
-//   setWorldConstructor,
-//   Given,
-//   When,
-//   Then,
-//   And,
-//   Before,
-//   After,
-// } = require("cucumber");
-
 Given(/^I visit My App CMS website$/, { timeout: 10000 }, function () {
   return this.driver.get("http://login.myappcms.com");
 });
@@ -106,17 +91,23 @@ Then(/^I click Sign in button$/, async function () {
   return this.driver.findElement({ id: "login-submit" }).click();
 });
 
-Then(/^I should see my Dashboard n$/, async function () {
-  return this.driver.findElement({ id: "wrapper" }).getText();
+// Then(/^I should see my Dashboard n$/, async function () {
+//   return this.driver.findElement({ id: "wrapper" }).getText();
+// });
+Then(/^I should see my Dashboard$/, { timeout: 10000 }, function () {
+  return this.driver.get("http://login.myappcms.com/build");
 });
 
-Then(/^I should see "([^"]*)"$/, async function (keyword) {
-  await driver.sleep(2000);
-  let result = await driver.findElement({ id: "b_results" }).getText();
-  return assert.ok(result.includes(keyword));
+Given(/^I am on my Dashboard$/, { timeout: 10000 }, function () {
+  return this.driver.get("http://login.myappcms.com/build");
+});
+When(/^I click Appointments$/, async function () {
+  return this.driver.findElement({ className: "appicon" }).click();
 });
 
-
+When(/^I click Services$/, async function () {
+  return this.driver.findElement({ className: "app-item-list" }).click();
+});
 
 // Then(/^I see Application Name field$/, { timeout: 2000 }, function () {
 //   this.driver
