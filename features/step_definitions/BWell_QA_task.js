@@ -5,7 +5,7 @@ const chromedriver = require("chromedriver");
 
 
 Given(/^I visit My App CMS website$/, { timeout: 10000 }, function () {
-  return this.driver.get("http://login.myappcms.com");
+  return this.driver.get("http://login.myappcms.com/");
 });
 
 // Locate form-signin-heading element and test text value
@@ -66,7 +66,7 @@ Then(/^I see Password field$/, { timeout: 5000 }, function () {
       assert.equal(
         placeholder,
         'Password',
-        'Apple'
+        'Error with password'
       )
     )
 
@@ -75,8 +75,11 @@ Then(/^I see Password field$/, { timeout: 5000 }, function () {
 
 
 
-When(/^I input app name "([^"]*)"$/, async function (keyword) {
-  return this.driver.findElement({ id: "appName" }).sendKeys(keyword);
+Then(/^I input app name "([^"]*)"$/, { timeout: 5000 }, function (keyword) {
+  return this.driver.wait(until.elementLocated(By.className('form-signin-heading')), 2000).then(formHeading =>
+
+    this.driver.findElement({ id: "appName" }).sendKeys(keyword)
+  )
 });
 
 When(/^I input username "([^"]*)"$/, async function (keyword) {
@@ -87,111 +90,65 @@ When(/^I input password "([^"]*)"$/, async function (keyword) {
   return this.driver.findElement({ id: "password" }).sendKeys(keyword);
 });
 
-Then(/^I click Sign in button$/, async function () {
+When(/^I click Sign in button$/, async function () {
   return this.driver.findElement({ id: "login-submit" }).click();
 });
 
-// Then(/^I should see my Dashboard n$/, async function () {
-//   return this.driver.findElement({ id: "wrapper" }).getText();
+// Then(/^I see the CMS DEMO ACCOUNT$/, { timeout: 10000 }, function () {
+
+//   return this.driver.wait(until.elementLocated(By.className('main-title')), 2000).then(mainTitle =>
+
+//     mainTitle.getText().then(mainTitle =>
+//       assert.equal(
+//         mainTitle,
+//         'CMS DEMO ACCOUNT',
+//         'Error in heading'
+//       )
+//     )
+
+//   );
 // });
-Then(/^I should see my Dashboard$/, { timeout: 10000 }, function () {
-  return this.driver.get("http://login.myappcms.com/build");
-});
-
-Given(/^I am on my Dashboard$/, { timeout: 10000 }, function () {
-  return this.driver.get("http://login.myappcms.com/build");
-});
-When(/^I click Appointments$/, async function () {
-  return this.driver.findElement({ className: "appicon" }).click();
-});
-
-When(/^I click Services$/, async function () {
-  return this.driver.findElement({ className: "app-item-list" }).click();
-});
-
-// Then(/^I see Application Name field$/, { timeout: 2000 }, function () {
-//   this.driver
-//     .findElement(By.id('appName'))
-//        .then((element) => {
-//          element
-//            .getId('appName')
-//            .then((appName) => {
-//             assert.c
-//             assert.equal(appName, 'Application name');
-//           return placeholder;
-//         })
-//         .catch((error) => console.log(error));
-//     })
-//     .catch((error) => console.log(error));
-//     });
-
-
-// Then(/^I see Application Name field$/, { timeout: 2000 }, function () {
-//   this.driver
-//     .findElements(By.id('appName'))
-//     .then((element) => {
-//       element
-//         .getAttribute('placeholder')
-//         .then((placeholder) => {
-//           assert.equal(placeholder, 'Application name');
-//           return placeholder;
-//         })
-//         .catch((error) => console.log(error));
-//     })
-//     .catch((error) => console.log(error));
-// });
-// Then(/^I see the submit button$/, { timeout: 2000 }, function () {
-//   this.driver
-//     .findElement(By.className('button'))
+// Then(/^I should see my Dashboard$/, { timeout: 10000 }, function () {
+//   return this.driver.get("http://login.myappcms.com/build");
 // });
 
-// Then(/^I see the form heading$/, { timeout: 2000 }, function () {
-//   this.driver
-//     .findElements(By.className('form-signin-heading'))
+// Given(/^I am on my Dashboard$/, { timeout: 10000 }, function () {
+//   return this.driver.get("http://login.myappcms.com/build");
 // });
 
-// Then(/^I click Submit$/, { timeout: 10000 }, function () {
-//   this.driver.findElements(By.className("button")).then((element) => {
-//     element.click("login-submit");
-//   });
+// Then(/^I see the CMS DEMO ACCOUNT$/, { timeout: 10000 }, function () {
+
+//   return this.driver.wait(until.elementLocated(By.className('main-title')), 2000).then(mainTitle =>
+
+//     mainTitle.getText().then(mainTitle =>
+//       assert.equal(
+//         mainTitle,
+//         'CMS DEMO ACCOUNT',
+//         'Error in heading'
+//       )
+//     )
+
+//   );
 // });
 
-// Then(/^I see Email Address field$/, { timeout: 2000 }, function () {
-//   this.driver
-//     .findElement(By.id("username"))
-//     .then((element) => {
-//       element
-//         .getAttribute("placeholder")
-//         .then((placeholder) => {
-//           assert.equal(placeholder, "Email address");
-//           return placeholder;
-//         })
-//         .catch((error) => console.log(error));
-//     })
-//     .catch((error) => console.log(error));
+// When(/^I click Attractions$/, async function () {
+//   return this.driver.findElement({ id: "appitemId-00d00fa0-d019-11e8-8605-0003ffbb5e34" }).click();
 // });
 
-// Then(/^I see Password field$/, { timeout: 2000 }, function () {
-//   this.driver
-//     .findElement(By.id("password"))
-//     .getAttribute("placeholder")
-//     .then((placeholder) => {
-//       assert.equal(placeholder, "Password");
-//       return placeholder;
-//     });
+// When(/^I click Services$/, async function () {
+//   return this.driver.findElement({ className: "app-item-list" }).click();
 // });
 
-// When(/^I type "([^"]*)" as App Name$/, { timeout: 10000 }, function (
-//   applicationName
-// ) {
-//   this.driver.findElement(By.id("appName")).then((element) => {
-//     element.setAttribute("value", applicationName);
-//     return true;
-//   });
-//   this.wait = function () {
-//     return browser.wait(10000);
-//   };
+
+
+
+//Scenario: User can search all Appointments services by name
+// Then(/^I click Attractions$/, async function () {
+//   return this.driver.findElement({ className: "applicationItemBlockContents context-menu-one" }).click();
 // });
+
+
+
 After(function () {
   return this.driver.close();
 });

@@ -1,11 +1,11 @@
 Feature: BWell QA Automation Task
 
-# Scenario: My App CMS Login website
-#     Given I visit My App CMS website
-#     Then I see the form heading
-#     And I see Application Name field
-#     And I see Email Address field
-#     And I see Password field
+Scenario: My App CMS Login website
+    Given I visit My App CMS website
+    Then I see the form heading
+    And I see Application Name field
+    And I see Email Address field
+    And I see Password field
 
 Scenario: User can Sign in with valid credentials
    Given I visit My App CMS website
@@ -13,7 +13,7 @@ Scenario: User can Sign in with valid credentials
    And I input username "demo@diyappdesigner.com"
    And I input password "demo123" 
    And I click Sign in button
-   Then I should see my Dashboard
+   # Then I should see my Dashboard
 
 
 # Scenario: User can sort in ascending order all appointments services by Name
@@ -30,9 +30,16 @@ Scenario: User can Sign in with valid credentials
 
 
 # Scenario: User can search all Appointments services by name
-#   Given I am on "http://lgin.myappcms.com/build" page
-#   When I type "colour" in the Search box
-#   Then I should see correct results list
+#   Given I visit My App CMS website
+#    When I input app name "CMS Demo Account" 
+#    And I input username "demo@diyappdesigner.com"
+#    And I input password "demo123" 
+#    And I click Sign in button
+   # Given I am on my Dashboard
+   # Then I see the CMS DEMO ACCOUNT
+  # When I click Attractions
+  # And I type "colour" in the Search box
+  # Then I should see correct results list
 
 
 
