@@ -58,6 +58,7 @@ Then(/^I see Email Address field$/, { timeout: 5000 }, function () {
 
   );
 });
+// Locate Password field and test placeholder value
 Then(/^I see Password field$/, { timeout: 5000 }, function () {
 
   return this.driver.wait(until.elementLocated(By.id('password')), 5000).then(passwordField =>
@@ -73,10 +74,8 @@ Then(/^I see Password field$/, { timeout: 5000 }, function () {
   );
 });
 
-
-
 Then(/^I input app name "([^"]*)"$/, { timeout: 5000 }, function (keyword) {
-  return this.driver.wait(until.elementLocated(By.className('form-signin-heading')), 2000).then(formHeading =>
+  return this.driver.wait(until.elementLocated(By.id('appName')), 2000).then(applicationNameField =>
 
     this.driver.findElement({ id: "appName" }).sendKeys(keyword)
   )
@@ -94,58 +93,67 @@ When(/^I click Sign in button$/, async function () {
   return this.driver.findElement({ id: "login-submit" }).click();
 });
 
-// Then(/^I see the CMS DEMO ACCOUNT$/, { timeout: 10000 }, function () {
 
-//   return this.driver.wait(until.elementLocated(By.className('main-title')), 2000).then(mainTitle =>
+Then(/^I should see my Dashboard$/, { timeout: 10000 }, function () {
 
-//     mainTitle.getText().then(mainTitle =>
-//       assert.equal(
-//         mainTitle,
-//         'CMS DEMO ACCOUNT',
-//         'Error in heading'
-//       )
-//     )
+  return this.driver.wait(until.elementLocated(By.className('app-item-list')), 10000).then(applicationNameField =>
+    this.driver.get("http://login.myappcms.com/build")
+  )
+});
 
-//   );
-// });
-// Then(/^I should see my Dashboard$/, { timeout: 10000 }, function () {
-//   return this.driver.get("http://login.myappcms.com/build");
-// });
-
-// Given(/^I am on my Dashboard$/, { timeout: 10000 }, function () {
-//   return this.driver.get("http://login.myappcms.com/build");
-// });
-
-// Then(/^I see the CMS DEMO ACCOUNT$/, { timeout: 10000 }, function () {
-
-//   return this.driver.wait(until.elementLocated(By.className('main-title')), 2000).then(mainTitle =>
-
-//     mainTitle.getText().then(mainTitle =>
-//       assert.equal(
-//         mainTitle,
-//         'CMS DEMO ACCOUNT',
-//         'Error in heading'
-//       )
-//     )
-
-//   );
-// });
-
-// When(/^I click Attractions$/, async function () {
-//   return this.driver.findElement({ id: "appitemId-00d00fa0-d019-11e8-8605-0003ffbb5e34" }).click();
-// });
-
-// When(/^I click Services$/, async function () {
-//   return this.driver.findElement({ className: "app-item-list" }).click();
-// });
-
+Given(/^I am on my Dashboard$/, { timeout: 10000 }, function () {
+  return this.driver.wait(until.elementLocated(By.className('app-item-list')), 10000).then(applicationNameField =>
+    this.driver.get("http://login.myappcms.com/build")
+  )
+});
 
 
 
 //Scenario: User can search all Appointments services by name
-// Then(/^I click Attractions$/, async function () {
-//   return this.driver.findElement({ className: "applicationItemBlockContents context-menu-one" }).click();
-// });
+When(/^I click Appointments$/, async function () {
+  return this.driver.wait(until.elementLocated(By.className('app-item-list')), 10000).then(appointments =>
+
+    this.driver.findElement({ id: "appitemId-00d010a0-d019-11e8-8605-0003ffbb5e34" }).click()
+  )
+});
+When(/^I click Services$/, async function () {
+  return this.driver.wait(until.elementLocated(By.className('app-item-list')), 10000).then(services =>
+
+    this.driver.findElement({ className: "app-item-list" }).click()
+  )
+});
+When(/^I click ascending by Service Name$/, async function () {
+  return this.driver.wait(until.elementLocated(By.className('app-item-list')), 10000).then(ascending =>
+
+    this.driver.findElement({ id: "gridcolumn-1605" }).click()
+  )
+});
+
+When(/^I click Attractions$/, async function () {
+  return this.driver.wait(until.elementLocated(By.className('app-item-list')), 10000).then(attractions =>
+
+    this.driver.findElement({ id: "appitemId-00d00fa0-d019-11e8-8605-0003ffbb5e34" }).click()
+  )
+});
+
+When(/^I input text "([^"]*)" in the Search box$/, async function (keyword) {
+  return this.driver.wait(until.elementLocated(By.id('gridcolumn-1019-titleEl')), 10000).then(input =>
+    this.driver.findElement({ className: "x-form-field x-form-text x-form-empty-field" }).sendKeys(keyword)
+  )
+});
+
+Then(/^I should see correct result$/, { timeout: 10000 }, function () {
+  return this.driver.wait(until.elementLocated(By.className('x-grid-cell-inner ')), 5000).then(result =>
+    result.getText().then(result =>
+      assert.equal(
+        result,
+        "New Title",
+        "Error in results"
+      )
+    )
+  )
+})
+
 
 
 
