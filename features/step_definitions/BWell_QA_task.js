@@ -125,7 +125,7 @@ When(/^I click Services$/, async function () {
 When(/^I click ascending by Service Name$/, async function () {
   return this.driver.wait(until.elementLocated(By.className('app-item-list')), 10000).then(ascending =>
 
-    this.driver.findElement({ id: "gridcolumn-1605" }).click()
+    this.driver.findElement({ id: "gridcolumn-1111" }).click()
   )
 });
 
@@ -154,9 +154,29 @@ Then(/^I should see correct result$/, { timeout: 10000 }, function () {
   )
 })
 
+When(/^I click Analytics$/, async function () {
+  return this.driver.wait(until.elementLocated(By.className('app-item-list')), 10000).then(coupons =>
 
-
-
+    this.driver.findElement({ id: "tab-analytics" }).click()
+  )
+});
+When(/^I click Social Media$/, async function () {
+  return this.driver.wait(until.elementLocated(By.className('analytics-list-view')), 10000).then(fullscreen =>
+    // this.driver.findElement(By.linkText("Show Fullscreen")).click()
+    this.driver.findElement({ className: "social" }).click()
+  )
+});
+Then(/^I should see Social Media detials page$/, { timeout: 10000 }, function () {
+  return this.driver.wait(until.elementLocated(By.className('title')), 5000).then(result =>
+    result.getText().then(result =>
+      assert.equal(
+        result,
+        "Social Media",
+        "Error in results"
+      )
+    )
+  )
+})
 After(function () {
   return this.driver.close();
 });
